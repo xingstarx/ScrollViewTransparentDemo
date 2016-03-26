@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private ScrollView mScrollView;
     private int mLastScrolly = -1;
+    private boolean mIsTansparency = false;
     private boolean mToolbarFlag = false;
     private int mToolbarColor;
     private int mToolbarHeight;
@@ -41,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
 
             //超过范围是直接进行hide,show的
             if (scrollY > mBaseImageHeight) {
+                //进行show,hide的时候，恢复transparency值
+                if (!mIsTansparency) {
+                    mIsTansparency = !mIsTansparency;
+                    updateActionBarTransparency(1.0f);
+                    updateMenuTansparency(1.0f);
+                }
                 if (scrollY > mLastScrolly && !mToolbarFlag) {
                     // TODO: 16/3/26  hide toolbar  向上滑
                     mToolbar.setVisibility(View.GONE);
@@ -51,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
                     mToolbarFlag = false;
                 }
             } else {//做渐变式的处理
+                if (mIsTansparency) {
+                    mIsTansparency = false;
+                }
                 updateActionBarTransparency(1.0f - 1.0f * scrollY / mBaseImageHeight);
                 updateMenuTansparency(1.0f - 1.0f * scrollY / mBaseImageHeight);
             }
