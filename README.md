@@ -1,0 +1,2 @@
+# ScrollViewTransparentDemo
+模仿知乎日报NewsActivity上下滑动的一个transparency效果，用来hide，show Toolbar
