@@ -66,9 +66,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateMenuTansparency(float scrollRatio) {
-        int newAlpha = (int) (scrollRatio * 255);
-        mPraiseMenuView.updateMenuTansparency(scrollRatio, Color.argb(newAlpha, Color.red(mToolbarColor), Color.green(mToolbarColor), Color.blue(mToolbarColor)));
-        mShareMenuView.updateMenuTansparency(scrollRatio, Color.argb(newAlpha, Color.red(mToolbarColor), Color.green(mToolbarColor), Color.blue(mToolbarColor)));
+        mPraiseMenuView.updateMenuTansparency(scrollRatio);
+        mShareMenuView.updateMenuTansparency(scrollRatio);
     }
 
     @Override
