@@ -6,35 +6,29 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 public class MainActivity extends AppCompatActivity {
 
 
     private static final String TAG = "MainActivity";
-    private LinearLayout mNewsContentPanel;
     private Toolbar mToolbar;
     private ScrollView mScrollView;
     private int mLastScrolly = -1;
     private boolean mIsTansparency = false;
     private boolean mToolbarFlag = false;
     private int mToolbarColor;
-    private int mToolbarHeight;
     private int mBaseImageHeight;
-    private Menu menu;
     private CustomMenuView mPraiseMenuView;
     private CustomMenuView mShareMenuView;
     private ViewTreeObserver.OnScrollChangedListener mOnScrollChangedListener = new ViewTreeObserver.OnScrollChangedListener() {
         @Override
         public void onScrollChanged() {
             int scrollY = mScrollView.getScrollY(); //for verticalScrollView
-
             if (scrollY < 0) {
                 return;
             }
@@ -84,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mNewsContentPanel = (LinearLayout) findViewById(R.id.news_content_panel);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mScrollView = (ScrollView) findViewById(R.id.scroll_view);
         mToolbarColor = ContextCompat.getColor(this, R.color.colorPrimary);
@@ -93,11 +86,6 @@ public class MainActivity extends AppCompatActivity {
         mShareMenuView = new CustomMenuView(MainActivity.this);
         mPraiseMenuView.setImage(R.drawable.praise);
         mShareMenuView.setImage(R.drawable.share);
-
-        TypedValue tv = new TypedValue();
-        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-            mToolbarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
-        }
         mBaseImageHeight = getResources().getDimensionPixelSize(R.dimen.base_image_height);
         setSupportActionBar(mToolbar);
         updateActionBarTransparency(1);
@@ -108,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        this.menu = menu;
         MenuItem menuItem = menu.findItem(R.id.add_praise);
         menuItem.setActionView(mPraiseMenuView);
         MenuItem sharemenuItem = menu.findItem(R.id.share);
